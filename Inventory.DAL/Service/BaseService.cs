@@ -34,6 +34,7 @@ namespace Inventory.Data.Service
 
         public IEnumerable<T> Where(Func<T, bool> predicate) => _context.Set<T>().Where(predicate);
         public T? Find(Func<T, bool> predicate) => _context.Set<T>().FirstOrDefault(predicate);
+        public bool Exsist(Func<T, bool> predicate) => Find(predicate) != null;
 
         public async void AddAsync(T Item)
         {

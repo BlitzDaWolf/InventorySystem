@@ -18,6 +18,6 @@ namespace Inventory.Data.Entities
         public string Checkin { get; set; } = "";
 
         public DateTime CheckoutTime { get; set; } = DateTime.Now;
-        public DateTime CheckinTime { get; set; } = DateTime.MinValue;
+        public DateTime CheckinTime { get; set; } = DateTime.Now;
     }
 }
