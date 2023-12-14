@@ -1,9 +1,10 @@
-﻿using Inventory.Data.Context;
+﻿using Inventory.DAL.Context;
+using Inventory.DAL.Service.Interface;
 using Inventory.Data.Entities;
 
 namespace Inventory.Data.Service
 {
-    public abstract class BaseService<T> where T : BaseEntity
+    public abstract class BaseService<T> : IBaseService<T> where T : BaseEntity
     {
         protected readonly InventoryContext _context;
 
@@ -29,8 +30,7 @@ namespace Inventory.Data.Service
         }
         
         public ICollection<T> GetAll() => _context.Set<T>().ToArray();
-        public T GetById(int id) => Find(x => x.Id == id);
-        public ICollection<T> GetByRange(int start, int end) => Where(x => x.Id > start && x.Id <= end).ToArray();
+        public T GetById(Guid id) => Find(x => x.Id == id) ?? throw new Exception($"No {typeof(T).Name} with id [{id}] not found");
 
         public IEnumerable<T> Where(Func<T, bool> predicate) => _context.Set<T>().Where(predicate);
         public T? Find(Func<T, bool> predicate) => _context.Set<T>().FirstOrDefault(predicate);

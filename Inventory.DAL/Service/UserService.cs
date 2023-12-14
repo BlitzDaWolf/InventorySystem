@@ -1,14 +1,19 @@
-﻿using Inventory.Data.Context;
+﻿using Inventory.DAL.Context;
+using Inventory.DAL.Service.Interface;
 using Inventory.Data.Entities;
 using Inventory.Data.Service;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Inventory.DAL.Service
 {
-    public class UserService : BaseService<User>
+    public class UserService : BaseService<User>, IUserServicve
     {
-        public UserService(InventoryContext context) : base(context) { }
-
-        public bool UserExsist(string username) => Exsist(x => x.Name == username);
-        public User GetUser(string username) => Find(x => x.Name == username);
+        public UserService(InventoryContext context) : base(context)
+        {
+        }
     }
 }

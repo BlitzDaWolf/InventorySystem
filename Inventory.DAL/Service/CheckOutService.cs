@@ -1,14 +1,17 @@
-﻿using Inventory.Data.Context;
+﻿using Inventory.DAL.Context;
+using Inventory.DAL.Service.Interface;
 using Inventory.Data.Entities;
 using Inventory.Data.Service;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Inventory.DAL.Service
 {
-    public class CheckOutService : BaseService<CheckOut>
+    public class CheckoutService : BaseService<Checkout>, ICheckoutService
     {
-
-        public CheckOutService(InventoryContext context) : base(context) { }
-
-        public IEnumerable<CheckOut> GetCheckoutsFromItem(int itemId) => Where(x => x.ItemId== itemId);
+        public CheckoutService(InventoryContext context) : base(context) { }
     }
 }
