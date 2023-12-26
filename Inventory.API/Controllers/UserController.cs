@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Inventory.DAL.Service;
 using Inventory.DAL.Service.Interface;
 using Inventory.Data.Entities;
+using Inventory.Service.Interfaces;
+using Inventory.API.DTO.User;
 
 namespace Inventory.API.Controllers
 {
@@ -10,28 +12,26 @@ namespace Inventory.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        readonly IUserDataServicve userServicve;
+        readonly IUserService userService;
 
-        public UserController(IUserDataServicve userServicve)
+        public UserController(IUserService userService)
         {
-            this.userServicve = userServicve;
-        }
-
-        [HttpGet]
-        public ICollection<User> Index()
-        {
-            return userServicve.GetAll();
+            this.userService = userService;
         }
 
         [HttpPost("login")]
-        public string Login()
+        public string Login(LoginDTO login)
         {
-            return "";
+            return userService.Login(login.UserName, login.Password);
         }
 
         [HttpPost("register")]
-        public IActionResult Register()
+        public IActionResult Register(RegisterDTO register)
         {
+            userService.Register(register.UserName,
+                register.Password,
+                register.RePassword,
+                register.Email);
             return Created("login", "");
         }
     }

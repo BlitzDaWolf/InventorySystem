@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Inventory.DAL\Inventory.DAL.csproj" />
+    <ProjectReference Include="..\Inventory.Service\Inventory.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
