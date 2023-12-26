@@ -10,8 +10,12 @@ using System.Threading.Tasks;
 
 namespace Inventory.DAL.Service
 {
-    public class CheckoutService : BaseService<Checkout>, ICheckoutService
+    public class LocationDataService : BaseDataService<Location>, ILocationDataService
     {
-        public CheckoutService(InventoryContext context) : base(context) { }
+        public LocationDataService(InventoryContext context) : base(context)
+        {
+        }
+
+        public IEnumerable<Location> GetLocationsFromGroup(Guid groupId) => Where(x => x.GroupId == groupId);
     }
 }

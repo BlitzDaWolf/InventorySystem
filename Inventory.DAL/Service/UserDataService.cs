@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Inventory.DAL.Service
 {
-    public class LocationService : BaseService<Location>, ILocationService
+    public class UserDataService : BaseDataService<User>, IUserDataServicve
     {
-        public LocationService(InventoryContext context) : base(context)
+        public UserDataService(InventoryContext context) : base(context)
         {
         }
     }

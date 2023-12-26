@@ -10,9 +10,9 @@ namespace Inventory.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        readonly IUserServicve userServicve;
+        readonly IUserDataServicve userServicve;
 
-        public UserController(IUserServicve userServicve)
+        public UserController(IUserDataServicve userServicve)
         {
             this.userServicve = userServicve;
         }
@@ -21,6 +21,18 @@ namespace Inventory.API.Controllers
         public ICollection<User> Index()
         {
             return userServicve.GetAll();
+        }
+
+        [HttpPost("login")]
+        public string Login()
+        {
+            return "";
+        }
+
+        [HttpPost("register")]
+        public IActionResult Register()
+        {
+            return Created("login", "");
         }
     }
 }

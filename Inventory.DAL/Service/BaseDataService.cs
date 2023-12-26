@@ -4,11 +4,11 @@ using Inventory.Data.Entities;
 
 namespace Inventory.Data.Service
 {
-    public abstract class BaseService<T> : IBaseService<T> where T : BaseEntity
+    public abstract class BaseDataService<T> : IBaseService<T> where T : BaseEntity
     {
         protected readonly InventoryContext _context;
 
-        protected BaseService(InventoryContext context)
+        protected BaseDataService(InventoryContext context)
         {
             _context = context;
         }

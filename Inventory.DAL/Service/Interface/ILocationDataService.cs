@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Inventory.DAL.Service.Interface
 {
-    public interface IGroupService : IBaseService<Group>
+    public interface ILocationDataService : IBaseService<Location>
     {
+        public IEnumerable<Location> GetLocationsFromGroup(Guid groupId);
     }
 }

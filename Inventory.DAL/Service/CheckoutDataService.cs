@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 
 namespace Inventory.DAL.Service
 {
-    public class UserService : BaseService<User>, IUserServicve
+    public class CheckoutDataService : BaseDataService<Checkout>, ICheckoutDataService
     {
-        public UserService(InventoryContext context) : base(context)
-        {
-        }
+        public CheckoutDataService(InventoryContext context) : base(context) { }
     }
 }

@@ -5,9 +5,9 @@ using Inventory.Data.Service;
 
 namespace Inventory.DAL.Service
 {
-    public class GroupService : BaseService<Group>, IGroupService
+    public class GroupDataService : BaseDataService<Group>, IGroupDataService
     {
-        public GroupService(InventoryContext context) : base(context)
+        public GroupDataService(InventoryContext context) : base(context)
         {
         }
     }

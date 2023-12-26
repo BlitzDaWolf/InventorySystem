@@ -17,7 +17,10 @@ builder.Services.AddDbContext<InventoryContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("inventory"), b => b.MigrationsAssembly("Inventory.API"));
 });
-builder.Services.AddScoped<IUserServicve, UserService>();
+builder.Services.AddScoped<IUserDataServicve, UserDataService>();
+builder.Services.AddScoped<ILocationDataService, LocationDataService>();
+builder.Services.AddScoped<IGroupDataService, GroupDataService>();
+builder.Services.AddScoped<ICheckoutDataService, CheckoutDataService>();
 
 var app = builder.Build();
 

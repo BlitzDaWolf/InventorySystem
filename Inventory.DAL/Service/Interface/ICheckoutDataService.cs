@@ -2,7 +2,7 @@
 
 namespace Inventory.DAL.Service.Interface
 {
-    public interface IUserServicve : IBaseService<User>
+    public interface ICheckoutDataService : IBaseService<Checkout>
     {
     }
 }
