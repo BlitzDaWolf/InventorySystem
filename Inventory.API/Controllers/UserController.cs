@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Inventory.DAL.Service;
-using Inventory.DAL.Service.Interface;
-using Inventory.Data.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using Inventory.Service.Interfaces;
 using Inventory.API.DTO.User;
 
