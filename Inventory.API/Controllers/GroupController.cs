@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Inventory.DAL.Service.Interface;
-using Inventory.Data.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Inventory.Service.Interfaces;
 using Inventory.API.DTO.Group;
@@ -24,7 +21,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateItem(CreateGroupDTO groupDto)
+        public IActionResult CreateGroup(CreateGroupDTO groupDto)
         {
             var uid = User.Claims.FirstOrDefault(x => x.Type == "userid")!.Value;
             var guid = Guid.Parse(uid);

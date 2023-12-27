@@ -1,38 +1,37 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Inventory.DAL.Service.Interface;
-using Inventory.Data.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Inventory.Service.Interfaces;
+using Inventory.API.DTO.Location;
+using AutoMapper;
 
 namespace Inventory.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LocationController : ControllerBase
     {
-        readonly ILocationDataService locationService;
+        readonly ILocationService locationService;
+        readonly IMapper mapper;
 
-        public LocationController(ILocationDataService locationService)
+        public LocationController(ILocationService locationService, IMapper mapper)
         {
             this.locationService = locationService;
+            this.mapper = mapper;
         }
 
-        // CRUD
+        [HttpGet("{id:guid}")]
+        public List<LocationDTO> GetLocations(Guid id)
+        {
+            var locations = locationService.GetLocations(id);
+            return mapper.Map<List<LocationDTO>>(locations);
+        }
+
         [HttpPost]
-        public IActionResult CreateItem()
+        public IActionResult CreateLocation(CreateLocationDTO location)
         {
-            locationService.Add(new Location { GroupId = Guid.Empty, LocationName = "tmp" });
-            return Accepted();
-        }
-
-        // TODO: Show only from group
-        [HttpGet] public ICollection<Location> GetLocations() => locationService.GetAll();
-        [HttpGet("{id}")] public Location GetLocation(Guid id) => locationService.GetById(id);
-
-        [HttpPut]
-        public IActionResult Update(Location location)
-        {
-            locationService.Update(location);
-            return Accepted();
+            locationService.CreateLocation(location.name, location.group);
+            return Created();
         }
     }
 }
