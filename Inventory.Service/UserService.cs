@@ -17,6 +17,11 @@ namespace Inventory.Service
             this.tokenGenerator = tokenGenerator;
         }
 
+        public User GetUser(Guid ownerId)
+        {
+            return UserData.GetById(ownerId);
+        }
+
         public string Login(string userName, string password)
         {
             User? user = UserData.GetByName(userName);

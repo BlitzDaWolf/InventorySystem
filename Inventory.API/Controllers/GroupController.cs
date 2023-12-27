@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Inventory.DAL.Service.Interface;
 using Inventory.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Inventory.Service.Interfaces;
+using Inventory.API.DTO.Group;
+using AutoMapper;
 
 namespace Inventory.API.Controllers
 {
@@ -11,21 +14,32 @@ namespace Inventory.API.Controllers
     [ApiController]
     public class GroupController : ControllerBase
     {
-        readonly IGroupDataService groupService;
+        readonly IGroupService groupService;
+        readonly IMapper mapper;
 
-        public GroupController(IGroupDataService groupService)
+        public GroupController(IGroupService groupService, IMapper mapper)
         {
             this.groupService = groupService;
+            this.mapper = mapper;
         }
 
         [HttpPost]
-        public IActionResult CreateItem()
+        public IActionResult CreateItem(CreateGroupDTO groupDto)
         {
-            // IGroupService.Add(new Group { GroupId = Guid.Empty, LocationName = "tmp" });
+            var uid = User.Claims.FirstOrDefault(x => x.Type == "userid")!.Value;
+            var guid = Guid.Parse(uid);
+            groupService.CreateGroup(groupDto.Permissions, guid);
             return Accepted();
         }
 
-        [HttpGet] public ICollection<Group> GetGroups() => groupService.GetAll();
+        [HttpGet("{id:guid}")]
+        public GroupDTO GetGroup(Guid id)
+        {
+            return mapper.Map<GroupDTO>(groupService.GetGroup(id));
+        }
+
+
+        /*[HttpGet] public ICollection<Group> GetGroups() => groupService.GetAll();
         [HttpGet("{id}")] public Group GetGroup(Guid id) => groupService.GetById(id);
 
         [HttpPut]
@@ -33,6 +47,6 @@ namespace Inventory.API.Controllers
         {
             groupService.Update(group);
             return Accepted();
-        }
+        }*/
     }
 }
