@@ -7,6 +7,14 @@ namespace Inventory.DAL.Context
     {
         public InventoryContext(DbContextOptions options) : base(options) { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Group>()
+                .HasMany(group => group.Users)
+                .WithMany();
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Location> Locations { get; set; }

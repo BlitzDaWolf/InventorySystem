@@ -59,6 +59,7 @@ builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwa
 builder.Services.AddDbContext<InventoryContext>(opt =>
 {
     opt.UseSqlite(config.GetConnectionString("inventory"), b => b.MigrationsAssembly("Inventory.API"));
+    opt.UseLazyLoadingProxies();
 });
 {
     builder.Services.AddScoped<IUserDataServicve, UserDataService>();
