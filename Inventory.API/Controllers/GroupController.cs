@@ -38,12 +38,20 @@ namespace Inventory.API.Controllers
             return mapper.Map<GroupDTO>(groupService.GetGroup(id));
         }
 
-        [HttpGet("/my")]
+        [HttpGet("my")]
         public List<GroupDTO> MyGroup()
         {
             var uid = User.Claims.FirstOrDefault(x => x.Type == "userid")!.Value;
             var guid = Guid.Parse(uid);
             return mapper.Map<List<GroupDTO>>(groupService.GetUserGroup(guid));
+        }
+
+        [HttpPost("join/{id:guid}")]
+        public void JoinGroup(Guid id)
+        {
+            var uid = User.Claims.FirstOrDefault(x => x.Type == "userid")!.Value;
+            var guid = Guid.Parse(uid);
+            groupService.JoinGroup(id, guid);
         }
     }
 }

@@ -38,5 +38,12 @@ namespace Inventory.Service
         {
             return groupData.Where(x => x.Users.FirstOrDefault(y => y.Id == userId) != null).ToList();
         }
+
+        public void JoinGroup(Guid id, Guid guid)
+        {
+            var g = groupData.GetById(id);
+            g.Users.Add(userService.GetUser(guid));
+            groupData.Update(g);
+        }
     }
 }
