@@ -8,11 +8,13 @@ namespace Inventory.Service
     {
         readonly IUserDataServicve UserData;
         readonly IPasswordCheck passwordChecker;
+        readonly ITokenGenerator tokenGenerator;
 
-        public UserService(IUserDataServicve userData, IPasswordCheck passwordChecker)
+        public UserService(IUserDataServicve userData, IPasswordCheck passwordChecker, ITokenGenerator tokenGenerator)
         {
             this.UserData = userData;
             this.passwordChecker = passwordChecker;
+            this.tokenGenerator = tokenGenerator;
         }
 
         public string Login(string userName, string password)
@@ -23,7 +25,7 @@ namespace Inventory.Service
             if (!passwordChecker.CheckPassword(user.Password, password)) throw new Exception("Password does not match");
 
             // Token generator
-            return user.Id.ToString();
+            return tokenGenerator.GenerateToken(user);
         }
 
         public bool Register(string userName, string password, string rePassword, string email)

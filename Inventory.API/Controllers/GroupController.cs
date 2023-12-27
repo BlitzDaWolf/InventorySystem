@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Inventory.DAL.Service.Interface;
 using Inventory.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Inventory.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GroupController : ControllerBase

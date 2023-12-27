@@ -1,24 +1,52 @@
-using Inventory.API;
+using Inventory.API.ServiceHelpers;
+using Inventory.API.Swagger;
 using Inventory.DAL.Context;
 using Inventory.DAL.Service;
 using Inventory.DAL.Service.Interface;
 using Inventory.Service;
 using Inventory.Service.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme= JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = config["JwtSettings:Issuer"],
+        ValidAudience = config["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"]!)),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
+    };
+});
+
+builder.Services.AddAuthorization();
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
 builder.Services.AddDbContext<InventoryContext>(opt =>
 {
-    opt.UseSqlite(builder.Configuration.GetConnectionString("inventory"), b => b.MigrationsAssembly("Inventory.API"));
+    opt.UseSqlite(config.GetConnectionString("inventory"), b => b.MigrationsAssembly("Inventory.API"));
 });
 {
     builder.Services.AddScoped<IUserDataServicve, UserDataService>();
@@ -27,6 +55,7 @@ builder.Services.AddDbContext<InventoryContext>(opt =>
     builder.Services.AddScoped<ICheckoutDataService, CheckoutDataService>();
 }
 {
+    builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
     builder.Services.AddScoped<IPasswordCheck, PasswordCheck>();
     builder.Services.AddScoped<IUserService, UserService>();
 }
@@ -42,6 +71,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseAuthorization();
 

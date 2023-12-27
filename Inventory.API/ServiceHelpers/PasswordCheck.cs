@@ -1,6 +1,6 @@
-﻿using Inventory.Service;
+﻿using Inventory.Service.Interfaces;
 
-namespace Inventory.API
+namespace Inventory.API.ServiceHelpers
 {
     public class PasswordCheck : IPasswordCheck
     {
