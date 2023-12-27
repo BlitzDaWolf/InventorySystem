@@ -1,3 +1,5 @@
+using AutoMapper;
+using Inventory.API.Mapper;
 using Inventory.API.ServiceHelpers;
 using Inventory.API.Swagger;
 using Inventory.DAL.Context;
@@ -44,6 +46,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
+{
+    var mapperConfig = new MapperConfiguration(mc =>
+    {
+        mc.AddProfile(new InventoryMapper());
+    });
+
+    IMapper mapper = mapperConfig.CreateMapper();
+    builder.Services.AddSingleton(mapper);
+}
+
 builder.Services.AddDbContext<InventoryContext>(opt =>
 {
     opt.UseSqlite(config.GetConnectionString("inventory"), b => b.MigrationsAssembly("Inventory.API"));
@@ -58,6 +70,7 @@ builder.Services.AddDbContext<InventoryContext>(opt =>
     builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
     builder.Services.AddScoped<IPasswordCheck, PasswordCheck>();
     builder.Services.AddScoped<IUserService, UserService>();
+    builder.Services.AddScoped<IGroupService, GroupService>();
 }
 
 
