@@ -13,7 +13,7 @@ namespace Inventory.Data.Entities
         public string ItemDescription { get; set; }
 
         public Guid LocationId { get; set; }
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
         public Status ItemStatus { get; set; }
     }

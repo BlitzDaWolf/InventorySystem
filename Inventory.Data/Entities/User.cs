@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Inventory.Data.Entities
+﻿namespace Inventory.Data.Entities
 {
     public class User : BaseEntity
     {
@@ -12,7 +6,5 @@ namespace Inventory.Data.Entities
         public string Password { get; set; } = "";
         public string Email { get; set; } = "";
         public DateTime Created { get; set; } = DateTime.Now;
-
-        // Many to many GroupList
     }
 }

@@ -18,7 +18,10 @@ namespace Inventory.Service
 
         public void CreateGroup(Permision permissions, Guid userId)
         {
-            groupData.Add(new Data.Entities.Group {  GroupPermisions = permissions, OwnerId = userId });
+            groupData.Add(new Data.Entities.Group { 
+                GroupPermisions = permissions,
+                Users = {userService.GetUser(userId)},
+            });
         }
 
         public Group GetGroup(Guid groupId)
@@ -26,9 +29,21 @@ namespace Inventory.Service
             var g = groupData.GetById(groupId);
             if (g == null) throw new Exception($"Group with id {groupId} does not exsist");
 
-            g.Owner = userService.GetUser(g.OwnerId);
+            // g.Owner = userService.GetUser(g.OwnerId);
 
             return g;
+        }
+
+        public List<Group> GetUserGroup(Guid userId)
+        {
+            return groupData.Where(x => x.Users.FirstOrDefault(y => y.Id == userId) != null).ToList();
+        }
+
+        public void JoinGroup(Guid id, Guid guid)
+        {
+            var g = groupData.GetById(id);
+            g.Users.Add(userService.GetUser(guid));
+            groupData.Update(g);
         }
     }
 }

@@ -3,7 +3,7 @@
     public class GroupDTO
     {
         public Guid Id { get; set; }
-        public UserGroupDTO Owner { get; set; }
+        public List<UserGroupDTO> Users { get; set; }
     }
 
     public class UserGroupDTO

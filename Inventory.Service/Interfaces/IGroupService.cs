@@ -7,5 +7,7 @@ namespace Inventory.Service.Interfaces
     {
         public void CreateGroup(Permision permissions, Guid userId);
         public Group GetGroup(Guid groupId);
+        public List<Group> GetUserGroup(Guid guid);
+        void JoinGroup(Guid id, Guid guid);
     }
 }

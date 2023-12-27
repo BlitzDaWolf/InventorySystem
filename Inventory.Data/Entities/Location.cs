@@ -11,6 +11,6 @@ namespace Inventory.Data.Entities
         public string LocationName { get; set; }
 
         public Guid GroupId { get; set; }
-        public Group Group { get; set; }
+        public virtual Group Group { get; set; }
     }
 }
