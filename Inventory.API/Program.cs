@@ -72,6 +72,7 @@ builder.Services.AddDbContext<InventoryContext>(opt =>
     builder.Services.AddScoped<IPasswordCheck, PasswordCheck>();
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<IGroupService, GroupService>();
+    builder.Services.AddScoped<ILocationService, LocationService>();
 }
 
 
