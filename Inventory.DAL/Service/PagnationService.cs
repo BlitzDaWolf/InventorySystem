@@ -14,7 +14,9 @@ namespace Inventory.DAL.Service
 
         public PagnationResponse<T> GetPagnation(PagnationRequest request, Func<T, bool> predicate)
         {
-            var baseList = Where(predicate);
+            IEnumerable<T> baseList = GetAll(); //.OrderBy(predicate);
+            if (predicate != null)
+                baseList = baseList.OrderBy(predicate);
             int totalSize = baseList.Count();
             var respose = new PagnationResponse<T> {
                 TotalSize = totalSize,
