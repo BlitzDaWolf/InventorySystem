@@ -13,6 +13,9 @@ namespace Inventory.DAL.Context
             modelBuilder.Entity<Group>()
                 .HasMany(group => group.Users)
                 .WithMany();
+            modelBuilder.Entity<Group>()
+                .HasOne(group => group.Owner)
+                .WithMany(user => user.OwnedGroups);
         }
 
         public DbSet<User> Users { get; set; }

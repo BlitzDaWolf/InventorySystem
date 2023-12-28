@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Inventory.API.DTO.Group;
+using Inventory.API.DTO.Location;
 using Inventory.Data.Entities;
 
 namespace Inventory.API.Mapper
@@ -10,6 +11,7 @@ namespace Inventory.API.Mapper
         {
             CreateMap<User, UserGroupDTO>().ReverseMap();
             CreateMap<Group, GroupDTO>().ReverseMap();
+            CreateMap<Location, LocationDTO>().ReverseMap();
         }
     }
 }

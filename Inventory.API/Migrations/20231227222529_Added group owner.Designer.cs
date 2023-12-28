@@ -3,6 +3,7 @@ using System;
 using Inventory.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.API.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20231227222529_Added group owner")]
+    partial class Addedgroupowner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,7 +195,7 @@ namespace Inventory.API.Migrations
             modelBuilder.Entity("Inventory.Data.Entities.Group", b =>
                 {
                     b.HasOne("Inventory.Data.Entities.User", "Owner")
-                        .WithMany("OwnedGroups")
+                        .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -220,11 +223,6 @@ namespace Inventory.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("Inventory.Data.Entities.User", b =>
-                {
-                    b.Navigation("OwnedGroups");
                 });
 #pragma warning restore 612, 618
         }

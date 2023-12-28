@@ -21,6 +21,7 @@ namespace Inventory.Service
             groupData.Add(new Data.Entities.Group { 
                 GroupPermisions = permissions,
                 Users = {userService.GetUser(userId)},
+                OwnerId = userId
             });
         }
 
@@ -28,8 +29,6 @@ namespace Inventory.Service
         {
             var g = groupData.GetById(groupId);
             if (g == null) throw new Exception($"Group with id {groupId} does not exsist");
-
-            // g.Owner = userService.GetUser(g.OwnerId);
 
             return g;
         }
