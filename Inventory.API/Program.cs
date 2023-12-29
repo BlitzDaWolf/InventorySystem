@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
@@ -66,6 +67,8 @@ builder.Services.AddDbContext<InventoryContext>(opt =>
     builder.Services.AddScoped<ILocationDataService, LocationDataService>();
     builder.Services.AddScoped<IGroupDataService, GroupDataService>();
     builder.Services.AddScoped<ICheckoutDataService, CheckoutDataService>();
+    builder.Services.AddScoped<IItemDataService, ItemDataService>();
+    builder.Services.AddScoped<ICheckoutDataService, CheckoutDataService>();
 }
 {
     builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
@@ -73,6 +76,7 @@ builder.Services.AddDbContext<InventoryContext>(opt =>
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<IGroupService, GroupService>();
     builder.Services.AddScoped<ILocationService, LocationService>();
+    builder.Services.AddScoped<IItemService, ItemService>();
 }
 
 

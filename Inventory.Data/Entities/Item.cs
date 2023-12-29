@@ -16,5 +16,7 @@ namespace Inventory.Data.Entities
         public virtual Location Location { get; set; }
 
         public Status ItemStatus { get; set; }
+
+        public virtual List<Checkout> Checkouts { get; set; }
     }
 }
