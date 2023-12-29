@@ -68,6 +68,7 @@ builder.Services.AddDbContext<InventoryContext>(opt =>
     builder.Services.AddScoped<IGroupDataService, GroupDataService>();
     builder.Services.AddScoped<ICheckoutDataService, CheckoutDataService>();
     builder.Services.AddScoped<IItemDataService, ItemDataService>();
+    builder.Services.AddScoped<ICheckoutDataService, CheckoutDataService>();
 }
 {
     builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();

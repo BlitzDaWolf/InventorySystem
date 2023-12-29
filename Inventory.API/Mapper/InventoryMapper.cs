@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Inventory.API.DTO.Checkout;
 using Inventory.API.DTO.Group;
 using Inventory.API.DTO.Item;
 using Inventory.API.DTO.Location;
@@ -18,6 +19,9 @@ namespace Inventory.API.Mapper
 
             CreateMap<Item, ItemDTO>().ReverseMap();
             CreateMap<PagnationResponse<Item>, PagnationResponseDTO<ItemDTO>>().ReverseMap();
+
+            CreateMap<Checkout, CheckOutDTO>().ReverseMap();
+            CreateMap<Item, ItemDetailDTO>().ReverseMap();
         }
     }
 }
